@@ -1,12 +1,3 @@
----
-title: AAO Skeleton Overview
-slug: aao-skeleton-overview
-last_updated: 2025-11-14
-tags: [overview, architecture, onboarding]
-summary: "High-level summary of the AAO skeleton goals, design principles, and directory layout."
-document_type: "concept"
----
-
 # AAO Skeleton
 
 This repository locks down the reference architecture for running an entire business through independent, platform-specific agents coordinated by an upper-layer orchestrator. The intent is to keep human intervention minimal and let AI drive day-to-day execution. The goal is to establish the correct skeleton so any future project can drop in real logic without rethinking structure. Keep the scaffolding lean, keep the expectations clear, avoid noise.
