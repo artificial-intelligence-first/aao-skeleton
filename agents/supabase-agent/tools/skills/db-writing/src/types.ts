@@ -1,2 +1,2 @@
-// Placeholder for supabase-write shared types.
+// Placeholder for db-writing shared types.
 export type SupabaseWriteTypes = Record<string, never>;
