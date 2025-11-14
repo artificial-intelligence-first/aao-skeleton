@@ -2,8 +2,9 @@
 title: Agent Runtime Package Guide
 slug: agent-runtime-guide
 summary: "Agent runtime ref"
-document_type: "reference"
+type: "reference"
 tags: [agent-runtime, reference, sdk]
 last_updated: 2025-11-14
 ---
+
 placeholder
