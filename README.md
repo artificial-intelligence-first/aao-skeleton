@@ -44,7 +44,7 @@ aao-skeleton/
 ├─ agents/                     # 1 medium = 1 standalone agent project
 │  ├─ supabase-agent/
 │  │  ├─ index.ts              # agent entrypoint (model-agnostic)
-│  │  ├─ instructions.md       # Supabase domain “laws”
+│  │  ├─ INSTRUCTIONS.md       # Supabase domain “laws”
 │  │  ├─ README.md / AGENTS.md # human + AI summaries
 │  │  ├─ package.json / tsconfig.json / .gitignore / .env(.example)
 │  │  ├─ docs/                 # Supabase-specific deep dives
