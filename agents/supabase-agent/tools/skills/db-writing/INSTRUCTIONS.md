@@ -1,6 +1,6 @@
 ---
 title: Supabase Write Instructions
-slug: supabase-write-instructions
+slug: db-writing-instructions
 summary: "Write guardrails"
 type: guide
 tags: [supabase, policy]

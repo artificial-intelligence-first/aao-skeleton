@@ -1,6 +1,6 @@
 ---
 title: Supabase Read Instructions
-slug: supabase-read-instructions
+slug: db-reading-instructions
 summary: "Read guardrails"
 type: guide
 tags: [supabase, policy]

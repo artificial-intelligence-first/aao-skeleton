@@ -1,10 +1,10 @@
 ---
-title: Supabase Write Skill
-slug: supabase-write-skill
+title: Supabase Read Skill
+slug: db-reading-skill
 summary: "Skeleton skill"
 type: reference
 tags: [supabase, skill]
 last_updated: 2025-01-01
 ---
 
-Supabase write skill placeholder.
+Supabase read skill placeholder.
