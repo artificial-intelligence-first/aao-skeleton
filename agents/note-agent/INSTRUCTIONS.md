@@ -1,10 +1,10 @@
 ---
 title: Note Agent Instructions
 slug: note-agent-instructions
-last_updated: 2025-11-14
+summary: "Note agent steps"
+type: "guide"
 tags: [notes, instructions, workflow]
-summary: "Operational guardrails the note agent follows for drafting and syncing notes."
-document_type: "guide"
+last_updated: 2025-11-14
 ---
 
 placeholder

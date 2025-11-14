@@ -1,10 +1,10 @@
 ---
 title: X API Skill Guide
 slug: x-api-skill-guide
-last_updated: 2025-11-14
+summary: "X API skill guide"
+type: "reference"
 tags: [x-platform, api, skill]
-summary: "Reference for the X platform API skill powering social posting and retrieval."
-document_type: "reference"
+last_updated: 2025-11-14
 ---
 
 placeholder

@@ -1,10 +1,10 @@
 ---
 title: Org Agent Directory
 slug: org-agent-directory
-last_updated: 2025-11-14
+summary: "Org agent catalog"
+type: "reference"
 tags: [agents, reference, docs]
-summary: "Catalog of organization-level agent roles, responsibilities, and escalation paths."
-document_type: "reference"
+last_updated: 2025-11-14
 ---
 
 placeholder

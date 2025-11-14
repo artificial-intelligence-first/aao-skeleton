@@ -1,10 +1,10 @@
 ---
 title: Agent Runtime Package Guide
 slug: agent-runtime-guide
-last_updated: 2025-11-14
+summary: "Agent runtime ref"
+type: "reference"
 tags: [agent-runtime, reference, sdk]
-summary: "Reference for the shared agent-runtime package that powers skills and adapters."
-document_type: "reference"
+last_updated: 2025-11-14
 ---
 
 placeholder

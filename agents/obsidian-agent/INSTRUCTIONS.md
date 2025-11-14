@@ -1,10 +1,10 @@
 ---
 title: Obsidian Agent Instructions
 slug: obsidian-agent-instructions
-last_updated: 2025-11-14
+summary: "Obsidian steps"
+type: "guide"
 tags: [obsidian, instructions, knowledge]
-summary: "Step-by-step operations for curating and syncing the Obsidian workspace."
-document_type: "guide"
+last_updated: 2025-11-14
 ---
 
 placeholder
