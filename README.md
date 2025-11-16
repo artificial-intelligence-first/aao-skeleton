@@ -1,6 +1,6 @@
 # AAO Skeleton
 
-This repository locks down the reference architecture for running an entire business through independent, platform-specific agents coordinated by an upper-layer orchestrator. The intent is to keep human intervention minimal and let AI drive day-to-day execution. The goal is to establish the correct skeleton so any future project can drop in real logic without rethinking structure. Keep the scaffolding lean, keep the expectations clear, avoid noise.
+This repository defines the canonical directory and workspace skeleton for agent-oriented operations (AAO). It is intentionally implementation-free: no business logic, no MCP servers, and no workflows live here. You treat this repo as a public template, copy it into a separate repository, and add all real behavior there. The goal is to lock down the correct structure once so downstream projects can build their own systems without rethinking layout. Keep the scaffolding lean, keep the expectations clear, avoid noise.
 
 ## Design Principles
 
@@ -15,14 +15,15 @@ This repository locks down the reference architecture for running an entire busi
 - **Operations visible from day one**  
   Supabase SSOT content stays under `db/{schemas,migrations,scripts}`. Workspace-level docs (architecture, policies, runbooks) sit beside CI wiring so operational practices never become an afterthought.
 - **Skeleton over implementation**  
-  Files remain empty until a downstream product needs them. The project structure is the deliverable.
+  Files remain empty in this repo; any real implementation is added only in downstream projects that copy this skeleton. The project structure is the deliverable.
 
 ## Directory Structure (finalized “type”)
 
 ```text
 aao-skeleton/
 ├─ package.json                # workspace manifest (pnpm-ready, intentionally tiny)
-├─ tsconfig.base.json          # shared TypeScript config
+├─ tsconfig.base.json          # shared TypeScript config (template)
+├─ tsconfig.json               # root TS project config extending base (template)
 ├─ pnpm-workspace.yaml         # workspace definition
 ├─ .env.example                # shared env template (each agent keeps its own .env)
 ├─ .gitignore
@@ -84,4 +85,4 @@ aao-skeleton/
       └─ README.md
 ```
 
-This layout is the fixed “type” for AAO skeleton development—new capabilities plug into skills or MCP servers without breaking agent isolation, and operational docs remain first-class citizens alongside the code.
+This layout is the fixed “type” for AAO skeleton development. This repository stays as a minimal, open skeleton; real systems copy this structure into separate, private or product-specific repositories. In those downstream repos, new capabilities plug into skills or MCP servers without breaking agent isolation, and operational docs remain first-class citizens alongside the code.

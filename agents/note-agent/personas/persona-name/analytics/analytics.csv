@@ -1,0 +1,3 @@
+date,metric,value,notes
+2025-01-01,sample_metric,0,"Skeleton analytics row; replace in downstream repo."
+

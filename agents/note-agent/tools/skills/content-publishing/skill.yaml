@@ -1,0 +1,4 @@
+name: content-publishing
+version: 0.0.0
+entry: dist/index.js
+
