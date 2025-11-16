@@ -1,6 +1,6 @@
 # AAO Skeleton
 
-**Agent-Oriented Operations (AAO)** is an architecture template for building **AI-driven autonomous systems** that coordinate multiple platform integrations with minimal human intervention.
+**Agent Autonomous Organization (AAO)** is a minimal architecture template for building autonomous AI systems that coordinate tasks across multiple platforms with reduced human involvement.
 
 This skeleton provides a **type-safe, extensible foundation** for creating domain-specific agents that operate independently while sharing common runtime infrastructure.
 
