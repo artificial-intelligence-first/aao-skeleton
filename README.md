@@ -16,7 +16,7 @@ graph TB
 
     subgraph Runtime["Shared Runtime"]
         AgentRuntime[agent-runtime]
-        Adapters[LLM Adapters<br/>OpenAI | Anthropic | Local]
+        Adapters[LLM Adapters]
         MCPCore[MCP Core]
         SkillLoader[Skill Loader]
         Observability[Logging & Tracing]
@@ -223,13 +223,13 @@ The skeleton provides the structure; you provide the implementation.
 
 ## Key Features
 
-✅ **Platform-first isolation** — Each agent is self-contained
-✅ **Multi-LLM support** — Future-proof adapter architecture
-✅ **Skill-based composition** — Reusable, testable capabilities
-✅ **AI-driven orchestration** — Minimal human intervention
-✅ **Type-safe operations** — TypeScript throughout
-✅ **Sandbox execution** — Secure MCP tool isolation
-✅ **Operations visibility** — Docs and policies built-in
+- **Platform-first isolation** — Each agent is self-contained
+- **Multi-LLM support** — Future-proof adapter architecture
+- **Skill-based composition** — Reusable, testable capabilities
+- **AI-driven orchestration** — Minimal human intervention
+- **Type-safe operations** — TypeScript throughout
+- **Sandbox execution** — Secure MCP tool isolation
+- **Operations visibility** — Docs and policies built-in
 
 ## License
 
