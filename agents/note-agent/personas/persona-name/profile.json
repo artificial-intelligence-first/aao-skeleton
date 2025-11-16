@@ -1,0 +1,9 @@
+{
+  "id": "persona-name",
+  "displayName": "Persona Name",
+  "description": "Skeleton persona profile used as a template in the note-agent workspace.",
+  "language": "en",
+  "tone": "calm",
+  "writingStyle": "concise",
+  "metadata": {}
+}
