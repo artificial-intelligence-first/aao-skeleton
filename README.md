@@ -1,108 +1,93 @@
 # AAO Skeleton
 
-**Agent-Oriented Operations (AAO)** is an architecture template for building **AI-driven autonomous systems** that minimize human intervention.
+**Agent-Oriented Operations (AAO)** is an architecture template for building **AI-driven autonomous systems** that coordinate multiple platform integrations with minimal human intervention.
 
-This skeleton defines a fixed "type" — a canonical structure optimized for operation, evolution, safety, and reusability. Independent agents for each platform (Supabase, Note, Obsidian, X) work under an orchestration layer (AI × Human), enabling the entire operation to run autonomously.
+This skeleton provides a **type-safe, extensible foundation** for creating domain-specific agents that operate independently while sharing common runtime infrastructure.
 
-## Architecture
+## Core Concepts
+
+### Agents
+Independent TypeScript projects that encapsulate platform-specific operations. Each agent is fully isolated with its own dependencies, environment, and documentation.
+
+### Skills
+Reusable, composable units of functionality packaged with metadata (`skill.yaml`), implementation, and tests. Skills are dynamically loaded by the runtime.
+
+### MCP (Model Context Protocol)
+Standard interface between agents and external platforms, providing secure, sandboxed tool execution.
+
+### Orchestration
+AI-driven coordination layer that manages high-level planning, task distribution, and minimal human touchpoints.
+
+### Shared Runtime
+Common infrastructure providing multi-LLM support, skill loading, observability, and MCP execution.
+
+## Architecture Overview
 
 ```mermaid
 graph TB
-    subgraph Orchestration["Orchestration Layer (AI × Human)"]
-        Plans[Plans & Playbooks]
-        CLI[CLI Wrappers]
-        Flows[Auto Flows]
+    subgraph "Orchestration Layer"
+        Orchestration[AI × Human Orchestration]
     end
 
-    subgraph Runtime["Shared Runtime"]
-        AgentRuntime[agent-runtime]
-        Adapters[LLM Adapters]
-        MCPCore[MCP Core]
-        SkillLoader[Skill Loader]
-        Observability[Logging & Tracing]
+    subgraph "Agent Layer"
+        Agent1[database-agent]
+        Agent2[content-agent]
+        Agent3[platform-agent]
     end
 
-    subgraph Agents["Independent Agents"]
-        SupabaseAgent[Supabase Agent<br/>DB Operations]
-        NoteAgent[Note Agent<br/>Content Management]
-        ObsidianAgent[Obsidian Agent<br/>Vault Operations]
-        XAgent[X Agent<br/>Social Media]
+    subgraph "Runtime Layer"
+        Runtime[Shared Runtime<br/>• LLM Adapters<br/>• Skill Loader<br/>• MCP Core<br/>• Observability]
     end
 
-    subgraph Skills["Skills & Tools"]
-        DBReading[db-reading]
-        DBWriting[db-writing]
-        ContentAuth[content-authoring]
-        ContentPub[content-publishing]
-        PersonaMgmt[persona-management]
-        ObsidianVault[obsidian-vault]
-        XAPI[x-api]
+    subgraph "External Platforms"
+        Platform1[(Database)]
+        Platform2[(Content Platform)]
+        Platform3[(Platform N)]
     end
 
-    subgraph External["External Platforms"]
-        Supabase[(Supabase)]
-        NotePlatform[(Note Platform)]
-        ObsidianVault2[(Obsidian Vault)]
-        XPlatform[(X/Twitter)]
-    end
+    Orchestration --> Agent1
+    Orchestration --> Agent2
+    Orchestration --> Agent3
 
-    Orchestration --> Agents
-    Agents --> Runtime
-    Runtime --> Skills
+    Agent1 --> Runtime
+    Agent2 --> Runtime
+    Agent3 --> Runtime
 
-    SupabaseAgent --> DBReading
-    SupabaseAgent --> DBWriting
-    DBReading --> Supabase
-    DBWriting --> Supabase
-
-    NoteAgent --> ContentAuth
-    NoteAgent --> ContentPub
-    NoteAgent --> PersonaMgmt
-    ContentPub --> NotePlatform
-
-    ObsidianAgent --> ObsidianVault
-    ObsidianVault --> ObsidianVault2
-
-    XAgent --> XAPI
-    XAPI --> XPlatform
+    Runtime --> Platform1
+    Runtime --> Platform2
+    Runtime --> Platform3
 
     classDef orchestrationStyle fill:#667eea,stroke:#764ba2,stroke-width:2px,color:#fff
-    classDef runtimeStyle fill:#f093fb,stroke:#f5576c,stroke-width:2px,color:#fff
     classDef agentStyle fill:#4facfe,stroke:#00f2fe,stroke-width:2px,color:#fff
-    classDef skillStyle fill:#43e97b,stroke:#38f9d7,stroke-width:2px,color:#fff
-    classDef externalStyle fill:#fa709a,stroke:#fee140,stroke-width:2px,color:#fff
+    classDef runtimeStyle fill:#f093fb,stroke:#f5576c,stroke-width:2px,color:#fff
+    classDef platformStyle fill:#fa709a,stroke:#fee140,stroke-width:2px,color:#fff
 
-    class Plans,CLI,Flows orchestrationStyle
-    class AgentRuntime,Adapters,MCPCore,SkillLoader,Observability runtimeStyle
-    class SupabaseAgent,NoteAgent,ObsidianAgent,XAgent agentStyle
-    class DBReading,DBWriting,ContentAuth,ContentPub,PersonaMgmt,ObsidianVault,XAPI skillStyle
-    class Supabase,NotePlatform,ObsidianVault2,XPlatform externalStyle
+    class Orchestration orchestrationStyle
+    class Agent1,Agent2,Agent3 agentStyle
+    class Runtime runtimeStyle
+    class Platform1,Platform2,Platform3 platformStyle
 ```
 
 ## System Flow
 
 ```mermaid
 sequenceDiagram
-    participant H as Human
-    participant O as Orchestration
-    participant A as Agent
-    participant S as Skill
-    participant M as MCP Server
-    participant P as Platform
+    participant Human
+    participant AI as AI Orchestration
+    participant Agent
+    participant Skill
+    participant Platform
 
-    H->>O: Define plan / trigger
-    O->>A: Execute task
-    A->>S: Load skill
-    S->>M: Call MCP tool
-    M->>P: API request
-    P-->>M: Response
-    M-->>S: Result
-    S-->>A: Processed data
-    A-->>O: Status update
-    O-->>H: Report (minimal)
-
-    Note over H,P: AI-driven autonomous loop
-    Note over H,O: Human intervention: minimal
+    Human->>AI: Define high-level goal
+    AI->>Agent: Distribute tasks
+    loop Autonomous Execution
+        Agent->>Skill: Execute capability
+        Skill->>Platform: Perform operation
+        Platform-->>Skill: Return result
+        Skill-->>Agent: Process data
+        Agent-->>AI: Report progress
+    end
+    AI-->>Human: Summary (minimal intervention)
 ```
 
 ## Directory Structure
@@ -110,126 +95,146 @@ sequenceDiagram
 ```
 aao-skeleton/
 │
-├── orchestration/             # AI×Human orchestration layer
-│   ├── plans/                 # Long/short-term playbooks
-│   ├── cli/                   # Command wrappers
-│   └── flows/                 # Auto-orchestration definitions
+├── orchestration/                 # AI×Human coordination layer
+│   ├── plans/                    # Strategic playbooks
+│   ├── flows/                    # Automated workflows
+│   └── cli/                      # Command interfaces
 │
-├── agents/                    # Independent agent projects
-│   ├── supabase-agent/        # Database operations
-│   │   ├── index.ts
-│   │   ├── db/{schemas,migrations,scripts}/
-│   │   └── tools/skills/{db-reading,db-writing}/
+├── agents/                        # Your domain-specific agents
+│   ├── {agent-name}/             # Replace with your agents
+│   │   ├── index.ts              # Agent implementation
+│   │   ├── INSTRUCTIONS.md       # Domain rules & guidelines
+│   │   ├── tools/
+│   │   │   ├── skills/           # Agent-specific capabilities
+│   │   │   └── mcp/              # Platform connectors
+│   │   └── docs/                 # Agent documentation
 │   │
-│   ├── note-agent/            # Content management
-│   │   ├── personas/          # Persona-based content
-│   │   └── tools/skills/{content-authoring,publishing,persona-management}/
-│   │
-│   ├── obsidian-agent/        # Vault operations
-│   │   └── tools/skills/obsidian-vault/
-│   │
-│   └── x-agent/               # Social media operations
-│       └── tools/skills/x-api/
+│   └── .../                      # Add more agents as needed
 │
 ├── packages/
-│   └── agent-runtime/         # Shared runtime & adapters
-│       ├── adapters/          # OpenAI / Anthropic / Local
-│       ├── mcp/               # MCP client & sandbox
-│       ├── skill-loader/      # Dynamic skill loading
-│       └── observability/     # Logging & tracing
+│   └── agent-runtime/             # Shared infrastructure
+│       ├── adapters/              # LLM providers (OpenAI, Anthropic, Local)
+│       ├── mcp/                   # MCP client & sandbox
+│       ├── skill-loader/          # Dynamic capability loading
+│       └── observability/         # Logging & tracing
 │
-└── docs/                      # Org-level documentation
+└── docs/                          # System-level documentation
     ├── ARCHITECTURE.md
     ├── POLICIES.md
     └── RUNBOOKS.md
 ```
 
-## Core Concepts
+### Agent Template Structure
 
-### Agents
-Each platform gets an **isolated TypeScript project** with its own dependencies, environment, documentation, and workspace. Agents operate independently and can be developed, tested, and deployed separately.
+Each agent follows this canonical pattern:
 
-### Skills
-Capabilities are defined via `skill.yaml`, packaged with scripts, templates, and tests. Skills are **reusable, composable, and testable** units of functionality loaded dynamically by the runtime.
-
-### MCP (Model Context Protocol)
-Agents interact with external platforms through **MCP servers**. Each agent has sandboxed MCP tools under `tools/mcp/{client,sandbox,servers}`.
-
-### Orchestration
-The **AI + Human orchestration layer** manages high-level planning and coordination. Model upgrades and policy changes affect only adapters and plans, not agent implementations.
-
-### Shared Runtime
-`packages/agent-runtime` provides:
-- **Multi-LLM support**: OpenAI, Anthropic, Local models
-- **MCP infrastructure**: Client, sandbox, server adapters
-- **Skill loading**: Dynamic capability injection
-- **Observability**: Structured logging and tracing
+```
+{agent-name}/
+├── index.ts                       # Entry point
+├── INSTRUCTIONS.md                # Agent-specific rules
+├── package.json                   # Dependencies
+├── tsconfig.json                  # TypeScript config
+├── tools/
+│   ├── skills/                    # Capabilities
+│   │   └── {skill-name}/
+│   │       ├── skill.yaml         # Skill metadata
+│   │       ├── src/               # Implementation
+│   │       ├── tests/             # Test suite
+│   │       └── templates/         # Resources
+│   └── mcp/                       # Platform integration
+└── .workspace/                    # Runtime workspace (gitignored)
+```
 
 ## Design Philosophy
 
 | Principle | Implementation |
 |-----------|----------------|
-| **Type-first** | Fixed structure defines the system "type" |
-| **Platform isolation** | 1 platform = 1 agent = 1 independent project |
-| **AI autonomy** | Minimal human intervention, maximum AI-driven execution |
-| **Model agnostic** | Adapters support multiple LLM providers |
-| **Operations-first** | Docs, policies, runbooks are first-class citizens |
-| **Skeleton over implementation** | This repo provides structure; downstream adds logic |
-
-## Agent Structure
-
-Each agent follows this canonical layout:
-
-```
-<agent-name>/
-├── index.ts                   # Agent entrypoint
-├── INSTRUCTIONS.md            # Domain-specific rules
-├── package.json / tsconfig.json
-├── .env / .env.example
-├── docs/                      # Agent-specific docs
-├── tools/
-│   ├── skills/                # Skill packages
-│   │   └── <skill>/
-│   │       ├── skill.yaml
-│   │       ├── src/
-│   │       ├── scripts/
-│   │       └── tests/
-│   └── mcp/
-│       ├── client/
-│       ├── sandbox/
-│       └── servers/<platform>/
-└── .workspace/                # Gitignored scratch & logs
-```
+| **Type-First** | Fixed canonical structure ensures consistency |
+| **Platform Isolation** | One agent per platform, fully independent |
+| **AI Autonomy** | Minimal human intervention, maximum automation |
+| **Model Agnostic** | Support for multiple LLM providers |
+| **Operations-First** | Documentation and policies as first-class citizens |
+| **Extensibility** | Skeleton structure, custom implementation |
 
 ## Getting Started
 
-This is a **template repository**. To use:
+This is a **template repository**. To build your autonomous system:
 
-1. **Copy** this skeleton to your project repository
-2. **Implement** business logic in agent `index.ts` files
-3. **Define** skills in `tools/skills/` directories
-4. **Configure** MCP servers for platform integrations
-5. **Set up** orchestration plans in `orchestration/plans/`
+### 1. Clone the Skeleton
+```bash
+git clone <this-repo> your-project
+cd your-project
+```
 
-The skeleton provides the structure; you provide the implementation.
+### 2. Define Your Agents
+Replace sample agents with your domain-specific implementations:
+```bash
+# Example: Create a CRM agent
+cp -r agents/sample-agent agents/crm-agent
+# Implement your CRM logic in agents/crm-agent/index.ts
+```
+
+### 3. Implement Skills
+Create reusable capabilities for your agents:
+```yaml
+# agents/{your-agent}/tools/skills/{skill}/skill.yaml
+name: your-skill
+version: 0.0.1
+entry: dist/index.js
+```
+
+### 4. Configure Orchestration
+Define your automation playbooks:
+```bash
+# orchestration/plans/daily-operations.yaml
+# orchestration/flows/data-pipeline.yaml
+```
+
+### 5. Set Environment
+```bash
+cp .env.example .env
+# Add your API keys and configuration
+```
 
 ## Technology Stack
 
-- **Language**: TypeScript (ES2020, NodeNext)
+- **Language**: TypeScript (ES2020, NodeNext modules)
 - **Runtime**: Node.js
-- **Package Manager**: pnpm (monorepo support)
-- **LLM Providers**: OpenAI, Anthropic, Local models
+- **Package Manager**: pnpm (monorepo workspace)
+- **LLM Support**: OpenAI, Anthropic, Local models
 - **Protocol**: MCP (Model Context Protocol)
+- **Architecture**: Skill-based, event-driven
 
-## Key Features
+## Sample Agents Included
 
-- **Platform-first isolation** — Each agent is self-contained
-- **Multi-LLM support** — Future-proof adapter architecture
-- **Skill-based composition** — Reusable, testable capabilities
-- **AI-driven orchestration** — Minimal human intervention
-- **Type-safe operations** — TypeScript throughout
-- **Sandbox execution** — Secure MCP tool isolation
-- **Operations visibility** — Docs and policies built-in
+This skeleton includes example agent structures to demonstrate the pattern:
+
+- **supabase-agent**: Database operations example
+- **note-agent**: Content management example
+- **obsidian-agent**: Knowledge base example
+- **x-agent**: Social platform example
+
+Replace these with your own domain-specific agents based on your needs.
+
+## Key Benefits
+
+- **Complete Platform Isolation** - Each agent operates independently
+- **Multi-LLM Provider Support** - Future-proof architecture
+- **Type-Safe Operations** - Full TypeScript with strict mode
+- **Reusable Skills** - Build once, use across agents
+- **AI-First Orchestration** - Autonomous operation by default
+- **Production Ready Structure** - Observability and policies built-in
+
+## Documentation
+
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) - System design details
+- [`docs/POLICIES.md`](docs/POLICIES.md) - Operational policies
+- [`docs/RUNBOOKS.md`](docs/RUNBOOKS.md) - Deployment & maintenance
+- [`AGENTS.md`](AGENTS.md) - Agent implementation guide
+
+## Contributing
+
+This is a template repository designed for downstream implementations. Fork or copy this skeleton to build your own autonomous system.
 
 ## License
 
