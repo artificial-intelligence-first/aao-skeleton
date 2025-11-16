@@ -1,0 +1,4 @@
+name: gh-branch
+version: 0.0.0
+entry: dist/index.js
+

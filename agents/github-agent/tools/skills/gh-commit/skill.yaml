@@ -1,0 +1,4 @@
+name: gh-commit
+version: 0.0.0
+entry: dist/index.js
+

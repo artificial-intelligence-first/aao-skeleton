@@ -1,0 +1,6 @@
+{
+  "name": "github",
+  "description": "MCP server for GitHub operations (branch, commit, push, status).",
+  "version": "0.0.0"
+}
+

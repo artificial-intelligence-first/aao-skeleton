@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist/git-core",
+    "rootDir": "./tools"
+  },
+  "include": ["tools/git-core.ts"]
+}
+
