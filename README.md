@@ -59,8 +59,10 @@ flowchart TB
     classDef agentStyle fill:#4facfe,stroke:#00f2fe,stroke-width:2px,color:#fff
     classDef runtimeStyle fill:#f093fb,stroke:#f5576c,stroke-width:2px,color:#fff
     classDef platformStyle fill:#fa709a,stroke:#fee140,stroke-width:2px,color:#fff
-    style subGraph2 fill:transparent
-    style subGraph0 color:#000000,stroke:#000000
+    style subGraph2 fill:#FFFFFF,stroke:#000000,color:none
+    style subGraph0 color:none,stroke:#000000,fill:#FFFFFF
+    style subGraph1 stroke:#000000,color:none
+    style subGraph3 stroke:#000000,color:none,fill:#FFFFFF
 
     L_Orchestration_Agent1_0@{ curve: linear } 
     L_Orchestration_Agent2_0@{ curve: linear } 
