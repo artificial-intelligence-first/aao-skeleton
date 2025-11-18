@@ -27,15 +27,15 @@ Common infrastructure providing multi-LLM support, skill loading, observability,
 graph TB
     %% ========== Orchestration Layer ==========
     subgraph "Orchestration Layer"
-        Human[Human UI / CLI / Codex]
-        Orchestration[AI × Human Orchestration<br/>• Workflow Engine<br/>• Task Router]
+        Human[Human]
+        Orchestration[AI Orchestration<br/>• Workflow Engine<br/>• Task Router]
     end
 
     %% ========== Agent Layer ==========
     subgraph "Agent Layer"
-        Agent1[database-agent<br/>• DB schema / queries]
-        Agent2[content-agent<br/>• Persona / books curation]
-        Agent3[platform-agent<br/>• External SaaS integrations]
+        Agent1[database-agent]
+        Agent2[content-agent]
+        Agent3[platform-agent]
     end
 
     %% ========== Runtime Layer ==========
@@ -45,9 +45,9 @@ graph TB
 
     %% ========== External Platforms ==========
     subgraph "External Platforms"
-        Platform1[(Supabase / Database)]
-        Platform2[(Content Platform<br/>Notion / etc.)]
-        Platform3[(External SaaS / Platform N)]
+        Platform1[(Database)]
+        Platform2[(Knowledge)]
+        Platform3[(Platform)]
     end
 
     %% ========== Flows ==========
