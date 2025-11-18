@@ -24,51 +24,28 @@ Common infrastructure providing multi-LLM support, skill loading, observability,
 ## Architecture Overview
 
 ```mermaid
-graph LR
+graph TB
 
-    %% ---------- Layer Labels (Left vertical stack) ----------
-    OrchestrationLabel[Orchestration Layer]
-    AgentLabel[Agent Layer]
-    RuntimeLabel[Runtime Layer]
-    PlatformLabel[External Platforms]
-
-    %% ---------- Orchestration Layer ----------
-    subgraph OrchestrationBox[ ]
-        direction TB
-        Human[Human]
-        Orchestration[AI Orchestration<br/>• Workflow Engine<br/>• Task Router]
+    subgraph "Orchestration Layer"
+        Orchestration[AI × Human Orchestration]
     end
 
-    %% ---------- Agent Layer ----------
-    subgraph AgentBox[ ]
-        direction TB
+    subgraph "Agent Layer"
         Agent1[database-agent]
-        Agent2[content-agent]
+        Agent2[creative-agent]
         Agent3[platform-agent]
     end
 
-    %% ---------- Runtime Layer ----------
-    subgraph RuntimeBox[ ]
-        direction TB
+    subgraph "Runtime Layer"
         Runtime[Shared Runtime<br/>• LLM Adapters<br/>• Skill Loader<br/>• MCP Core<br/>• Observability]
     end
 
-    %% ---------- Platforms Layer ----------
-    subgraph PlatformBox[ ]
-        direction TB
+    subgraph "External Platforms"
         Platform1[(Database)]
-        Platform2[(Knowledge)]
+        Platform2[(knowledge)]
         Platform3[(Platform)]
     end
 
-    %% ---------- Positioning (force ordering) ----------
-    OrchestrationLabel --> OrchestrationBox
-    AgentLabel --> AgentBox
-    RuntimeLabel --> RuntimeBox
-    PlatformLabel --> PlatformBox
-
-    %% ---------- Flows ----------
-    Human --> Orchestration
     Orchestration --> Agent1
     Orchestration --> Agent2
     Orchestration --> Agent3
@@ -77,18 +54,15 @@ graph LR
     Agent2 --> Runtime
     Agent3 --> Runtime
 
-    Runtime -->| read/write | Platform1
-    Runtime -->| read/write | Platform2
-    Runtime -->| read/write | Platform3
+    Runtime --> Platform1
+    Runtime --> Platform2
+    Runtime --> Platform3
 
-    %% ---------- Styles ----------
-    classDef labelStyle fill:#222,stroke:#444,color:#fff,font-weight:bold
     classDef orchestrationStyle fill:#667eea,stroke:#764ba2,stroke-width:2px,color:#fff
     classDef agentStyle fill:#4facfe,stroke:#00f2fe,stroke-width:2px,color:#fff
     classDef runtimeStyle fill:#f093fb,stroke:#f5576c,stroke-width:2px,color:#fff
     classDef platformStyle fill:#fa709a,stroke:#fee140,stroke-width:2px,color:#fff
 
-    class OrchestrationLabel,AgentLabel,RuntimeLabel,PlatformLabel labelStyle
     class Orchestration orchestrationStyle
     class Agent1,Agent2,Agent3 agentStyle
     class Runtime runtimeStyle
