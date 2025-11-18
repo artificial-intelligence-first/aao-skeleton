@@ -25,25 +25,33 @@ Common infrastructure providing multi-LLM support, skill loading, observability,
 
 ```mermaid
 graph TB
+    %% ========== Orchestration Layer ==========
     subgraph "Orchestration Layer"
-        Orchestration[AI × Human Orchestration]
+        Human[Human UI / CLI / Codex]
+        Orchestration[AI × Human Orchestration<br/>• Workflow Engine<br/>• Task Router]
     end
 
+    %% ========== Agent Layer ==========
     subgraph "Agent Layer"
-        Agent1[database-agent]
-        Agent2[content-agent]
-        Agent3[platform-agent]
+        Agent1[database-agent<br/>• DB schema / queries]
+        Agent2[content-agent<br/>• Persona / books curation]
+        Agent3[platform-agent<br/>• External SaaS integrations]
     end
 
+    %% ========== Runtime Layer ==========
     subgraph "Runtime Layer"
         Runtime[Shared Runtime<br/>• LLM Adapters<br/>• Skill Loader<br/>• MCP Core<br/>• Observability]
     end
 
+    %% ========== External Platforms ==========
     subgraph "External Platforms"
-        Platform1[(Database)]
-        Platform2[(Content Platform)]
-        Platform3[(Platform N)]
+        Platform1[(Supabase / Database)]
+        Platform2[(Content Platform<br/>Notion / etc.)]
+        Platform3[(External SaaS / Platform N)]
     end
+
+    %% ========== Flows ==========
+    Human --> Orchestration
 
     Orchestration --> Agent1
     Orchestration --> Agent2
@@ -53,16 +61,17 @@ graph TB
     Agent2 --> Runtime
     Agent3 --> Runtime
 
-    Runtime --> Platform1
-    Runtime --> Platform2
-    Runtime --> Platform3
+    Runtime -->|read / write| Platform1
+    Runtime -->|read / write| Platform2
+    Runtime -->|read / write| Platform3
 
+    %% ========== Styles ==========
     classDef orchestrationStyle fill:#667eea,stroke:#764ba2,stroke-width:2px,color:#fff
-    classDef agentStyle fill:#4facfe,stroke:#00f2fe,stroke-width:2px,color:#fff
-    classDef runtimeStyle fill:#f093fb,stroke:#f5576c,stroke-width:2px,color:#fff
-    classDef platformStyle fill:#fa709a,stroke:#fee140,stroke-width:2px,color:#fff
+    classDef agentStyle         fill:#4facfe,stroke:#00f2fe,stroke-width:2px,color:#fff
+    classDef runtimeStyle       fill:#f093fb,stroke:#f5576c,stroke-width:2px,color:#fff
+    classDef platformStyle      fill:#fa709a,stroke:#fee140,stroke-width:2px,color:#fff
 
-    class Orchestration orchestrationStyle
+    class Human,Orchestration orchestrationStyle
     class Agent1,Agent2,Agent3 agentStyle
     class Runtime runtimeStyle
     class Platform1,Platform2,Platform3 platformStyle
