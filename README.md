@@ -24,55 +24,49 @@ Common infrastructure providing multi-LLM support, skill loading, observability,
 ## Architecture Overview
 
 ```mermaid
-flowchart TB
- subgraph subGraph0["Orchestration Layer"]
-        Orchestration["AI × Human Orchestration"]
-  end
- subgraph subGraph1["Agent Layer"]
-        Agent1["database-agent"]
-        Agent2["creative-agent"]
-        Agent3["platform-agent"]
-  end
- subgraph subGraph2["Runtime Layer"]
-        Runtime["Shared Runtime<br>• LLM Adapters<br>• Skill Loader<br>• MCP Core<br>• Observability"]
-  end
- subgraph subGraph3["External Platforms"]
-        Platform1[("Database")]
-        Platform2[("knowledge")]
-        Platform3[("Platform")]
-  end
-    Orchestration L_Orchestration_Agent1_0@--> Agent1 & Agent2 & Agent3
-    Agent1 L_Agent1_Runtime_0@--> Runtime
-    Agent2 L_Agent2_Runtime_0@--> Runtime
-    Agent3 L_Agent3_Runtime_0@--> Runtime
-    Runtime L_Runtime_Platform1_0@--> Platform1 & Platform2 & Platform3
+graph TB
 
-     Orchestration:::orchestrationStyle
-     Agent1:::agentStyle
-     Agent2:::agentStyle
-     Agent3:::agentStyle
-     Runtime:::runtimeStyle
-     Platform1:::platformStyle
-     Platform2:::platformStyle
-     Platform3:::platformStyle
+    subgraph "Orchestration Layer"
+        Orchestration[AI × Human Orchestration]
+    end
+
+    subgraph "Agent Layer"
+        Agent1[database-agent]
+        Agent2[creative-agent]
+        Agent3[platform-agent]
+    end
+
+    subgraph "Runtime Layer"
+        Runtime[Shared Runtime<br/>• LLM Adapters<br/>• Skill Loader<br/>• MCP Core<br/>• Observability]
+    end
+
+    subgraph "External Platforms"
+        Platform1[(Database)]
+        Platform2[(knowledge)]
+        Platform3[(Platform)]
+    end
+
+    Orchestration --> Agent1
+    Orchestration --> Agent2
+    Orchestration --> Agent3
+
+    Agent1 --> Runtime
+    Agent2 --> Runtime
+    Agent3 --> Runtime
+
+    Runtime --> Platform1
+    Runtime --> Platform2
+    Runtime --> Platform3
+
     classDef orchestrationStyle fill:#667eea,stroke:#764ba2,stroke-width:2px,color:#fff
     classDef agentStyle fill:#4facfe,stroke:#00f2fe,stroke-width:2px,color:#fff
     classDef runtimeStyle fill:#f093fb,stroke:#f5576c,stroke-width:2px,color:#fff
     classDef platformStyle fill:#fa709a,stroke:#fee140,stroke-width:2px,color:#fff
-    style subGraph2 fill:#FFFFFF,stroke:#000000,color:none
-    style subGraph0 color:none,stroke:#000000,fill:#FFFFFF
-    style subGraph1 stroke:#000000,color:none
-    style subGraph3 stroke:#000000,color:none,fill:#FFFFFF
 
-    L_Orchestration_Agent1_0@{ curve: linear } 
-    L_Orchestration_Agent2_0@{ curve: linear } 
-    L_Orchestration_Agent3_0@{ curve: linear } 
-    L_Agent1_Runtime_0@{ curve: linear } 
-    L_Agent2_Runtime_0@{ curve: linear } 
-    L_Agent3_Runtime_0@{ curve: linear } 
-    L_Runtime_Platform1_0@{ curve: linear } 
-    L_Runtime_Platform2_0@{ curve: linear } 
-    L_Runtime_Platform3_0@{ curve: linear } 
+    class Orchestration orchestrationStyle
+    class Agent1,Agent2,Agent3 agentStyle
+    class Runtime runtimeStyle
+    class Platform1,Platform2,Platform3 platformStyle
 ```
 
 ## System Flow
