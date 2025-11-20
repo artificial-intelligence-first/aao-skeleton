@@ -131,7 +131,10 @@ Swap these with your own agents while keeping the layout.
 3. **Add skills**: scaffold from `tooling/templates/skill` into `agents/<agent>/skills/<skill>/` and fill in `skill.yaml` and `src/`.
 4. **Wire MCP**: extend `agents/<agent>/mcp/servers/` for your platform and reuse `packages/agent-runtime`.
 5. **Plan orchestration**: add a plan under `orchestration/plans/` and a flow under `orchestration/flows/`, then expose a thin script in `orchestration/cli/`.
-6. **Configure env**: copy `.env.example` to `.env` per agent and keep generated artifacts inside `generated/` or `packages/*/build/`.
+6. **Configure env (two-layer)**:
+   - Copy root `.env.example` to `.env` for shared defaults (LLM keys, logging, runtime endpoints).
+   - Copy each `agents/<agent>/.env.example` to `agents/<agent>/.env` for agent-specific overrides (e.g., GitHub token, Supabase keys).
+   - Load order: root `.env` then agent `.env` (agent wins on conflicts). Keep generated artifacts inside `generated/` or `packages/*/build/`.
 
 ## Documentation
 - `docs/ARCHITECTURE.md` - System design
