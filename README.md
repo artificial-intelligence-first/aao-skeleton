@@ -1,6 +1,6 @@
 # AAO Skeleton
 
-Agent Autonomous Organization (AAO) is a public skeleton for building autonomous, multi-agent systems with minimal human intervention. It keeps agents isolated, skills reusable, and orchestration visible.
+Autonomous Agent Organization (AAO) is a public skeleton for building autonomous, multi-agent systems with minimal human intervention. It keeps agents isolated, skills reusable, and orchestration visible.
 
 ## Why this skeleton
 - Standardized agent layout so every platform integration looks the same.
@@ -29,8 +29,8 @@ graph TB
 
     subgraph "External Platforms"
         Platform1[(Database)]
-        Platform2[(Content Platform)]
-        Platform3[(Platform N)]
+        Platform2[(knowledge)]
+        Platform3[(Platform)]
     end
 
     Orchestration --> Agent1
