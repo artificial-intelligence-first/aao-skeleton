@@ -1,0 +1,6 @@
+packages:
+  - 'agents/*'
+  - 'packages/*'
+  - 'tooling'
+  - 'orchestration'
+

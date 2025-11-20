@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+generated/
+packages/*/build/
+!agents/supabase-agent/generated/
+!agents/supabase-agent/generated/supabase.ts
+
+.env
+.env.*
+.workspace/
+.logs/
+
+pnpm-lock.yaml
+.DS_Store
+!**/.gitkeep
