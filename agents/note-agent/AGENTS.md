@@ -4,7 +4,19 @@ slug: note-agent-contract
 summary: "Note agent policy"
 type: "policy"
 tags: [notes, governance, policy]
-last_updated: 2025-11-14
+last_updated: 2025-11-20
 ---
 
-placeholder
+## Directory Structure
+
+- `src/`: Shared logic / utilities for this agent
+- `skills/`: Agent skills (formerly tools/skills)
+- `mcp/`: MCP runtime (client, sandbox, servers)
+- `config/`: Agent-specific configuration
+- `infra/`: Infra assets (DB, migrations, scripts)
+- `data/`: Persistent sample data / personas
+- `generated/`: Generated artifacts (gitignored)
+- `tests/`: Tests and fixtures
+- `docs/`: Agent-specific documentation
+- `.workspace/`: Runtime work dir (gitignored)
+- `.logs/`: Logs (gitignored)

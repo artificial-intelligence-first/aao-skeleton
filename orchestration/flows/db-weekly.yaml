@@ -1,0 +1,7 @@
+name: db-weekly
+summary: Weekly database hygiene run coordinated by the orchestrator.
+steps:
+  - id: validate-schema
+    run: ./cli/run-db-validate.sh
+  - id: smoke-skills
+    run: ./cli/run-skill-smoke.sh
