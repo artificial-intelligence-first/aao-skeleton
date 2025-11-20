@@ -13,37 +13,37 @@ Autonomous Agent Organization (AAO) is a public skeleton for building autonomous
 
 ```mermaid
 graph TB
-    subgraph "Orchestration"
-        Orchestration[AI x Human Coordination]
+    subgraph OrchestrationLayer [Orchestration]
+        OrchestrationNode[AI x Human Coordination]
     end
 
-    subgraph "Agents"
+    subgraph AgentsLayer [Agents]
         Agent1[database-agent]
         Agent2[content-agent]
         Agent3[platform-agent]
     end
 
-    subgraph "Runtime"
-        Runtime[Shared Runtime<br/>LLM Adapters<br/>Skill Loader<br/>MCP Core<br/>Observability]
+    subgraph RuntimeLayer [Runtime]
+        RuntimeNode[Shared Runtime<br/>LLM Adapters<br/>Skill Loader<br/>MCP Core<br/>Observability]
     end
 
-    subgraph "External Platforms"
+    subgraph PlatformsLayer [External Platforms]
         Platform1[(Database)]
         Platform2[(knowledge)]
         Platform3[(Platform)]
     end
 
-    Orchestration --> Agent1
-    Orchestration --> Agent2
-    Orchestration --> Agent3
+    OrchestrationNode --> Agent1
+    OrchestrationNode --> Agent2
+    OrchestrationNode --> Agent3
 
-    Agent1 --> Runtime
-    Agent2 --> Runtime
-    Agent3 --> Runtime
+    Agent1 --> RuntimeNode
+    Agent2 --> RuntimeNode
+    Agent3 --> RuntimeNode
 
-    Runtime --> Platform1
-    Runtime --> Platform2
-    Runtime --> Platform3
+    RuntimeNode --> Platform1
+    RuntimeNode --> Platform2
+    RuntimeNode --> Platform3
 ```
 
 ## Top-level layout
